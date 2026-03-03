@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QCM_JavaScript - Quiz NSK Automobile</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #000000, #434343);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    animation: apparition 2s ease-in-out;
+}
+
+.quiz-container {
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 15px;
+    width: 70%;
+    margin: auto;
+    animation: apparition 2s ease-in-out;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+button:hover {
+    background-color: red;
+    color: white;
+    transform: scale(1.1);
+}
+
+select, input {
+    padding: 6px;
+    margin-top: 5px;
+}
+
+.correct {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.incorrect {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+@keyframes apparition {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+h1:hover {
+    color: gold;
+    transition: 0.5s;
+}
+
+#score {
+    animation: clignote 1s infinite alternate;
+}
+
+@keyframes clignote {
+    from { color: white; }
+    to { color: yellow; }
+}
+</style>
+</head>
+
+<body>
+
+<h1> Quiz - NSK Automobile</h1>
+
+<div class="quiz-container">
+
+<!-- Question 1 -->
+<p><b>1. NSK Automobile est une entreprise de vente de voitures en ligne.</b></p>
+<input type="radio" name="q1" value="vrai"> Vrai
+<input type="radio" name="q1" value="faux"> Faux
+<p id="corr1"></p>
+
+<!-- Question 2 -->
+<p><b>2. Quel type de voitures est proposé sur le site ?</b></p>
+<select id="q2">
+<option value="">--Choisir--</option>
+<option value="citadine">Voitures citadines</option>
+<option value="luxe">Voitures de luxe</option>
+<option value="utilitaire">Véhicules utilitaires</option>
+</select>
+<p id="corr2"></p>
+
+<!-- Question 3 -->
+<p><b>3. Citez trois marques présentes sur le site.</b></p>
+<p><i>Réponse attendue : en minuscule, séparées par des virgules (ex: ferrari,lamborghini,bugatti)</i></p>
+<input type="text" id="q3">
+<p id="corr3"></p>
+
+<!-- Question 4 -->
+<p><b>4. Combien de temps les véhicules sont-ils garantis ?</b></p>
+<input type="radio" name="q4" value="2"> 2 ans
+<input type="radio" name="q4" value="3"> 3 ans
+<input type="radio" name="q4" value="5"> 5 ans
+<p id="corr4"></p>
+
+<!-- Question 5 -->
+<p><b>5. Sur quelle voiture une réduction de 20 % est-elle proposée ?</b></p>
+<input type="radio" name="q5" value="ferrari"> Ferrari
+<input type="radio" name="q5" value="lamborghini"> Lamborghini Mansory
+<input type="radio" name="q5" value="bugatti"> Bugatti
+<p id="corr5"></p>
+
+<br><br>
+<button onclick="corrigerQuiz()">Valider le Quiz</button>
+
+<h2 id="score"></h2>
+
+</div>
+
+<script>
+function corrigerQuiz(){
+
+let score = 0;
+
+// Question 1
+let q1 = document.querySelector('input[name="q1"]:checked');
+if(q1 && q1.value === "vrai"){
+    score++;
+    document.getElementById("corr1").innerHTML = "✔ Bonne réponse";
+    document.getElementById("corr1").className="correct";
+}else{
+    document.getElementById("corr1").innerHTML = "✖ Mauvaise réponse. La bonne réponse était : Vrai.";
+    document.getElementById("corr1").className="incorrect";
+}
+
+// Question 2
+let q2 = document.getElementById("q2").value;
+if(q2 === "luxe"){
+    score++;
+    document.getElementById("corr2").innerHTML="✔ Bonne réponse";
+    document.getElementById("corr2").className="correct";
+}else{
+    document.getElementById("corr2").innerHTML="✖ Mauvaise réponse. La bonne réponse était : Voitures de luxe.";
+    document.getElementById("corr2").className="incorrect";
+}
+
+// Question 3
+let q3 = document.getElementById("q3").value.toLowerCase();
+if(q3.includes("ferrari") && q3.includes("lamborghini") && q3.includes("bugatti")){
+    score++;
+    document.getElementById("corr3").innerHTML="✔ Bonne réponse";
+    document.getElementById("corr3").className="correct";
+}else{
+    document.getElementById("corr3").innerHTML="✖ Réponse incorrecte. Marques attendues : ferrari, lamborghini, bugatti.";
+    document.getElementById("corr3").className="incorrect";
+}
+
+// Question 4
+let q4 = document.querySelector('input[name="q4"]:checked');
+if(q4 && q4.value === "5"){
+    score++;
+    document.getElementById("corr4").innerHTML="✔ Bonne réponse";
+    document.getElementById("corr4").className="correct";
+}else{
+    document.getElementById("corr4").innerHTML="✖ Mauvaise réponse. La bonne réponse était : 5 ans.";
+    document.getElementById("corr4").className="incorrect";
+}
+
+// Question 5
+let q5 = document.querySelector('input[name="q5"]:checked');
+if(q5 && q5.value === "lamborghini"){
+    score++;
+    document.getElementById("corr5").innerHTML="✔ Bonne réponse";
+    document.getElementById("corr5").className="correct";
+}else{
+    document.getElementById("corr5").innerHTML="✖ Mauvaise réponse. La bonne réponse était : Lamborghini Mansory.";
+    document.getElementById("corr5").className="incorrect";
+}
+
+document.getElementById("score").innerHTML="🏁 Score final : " + score + " / 5";
+
+}
+</script>
+
+</body>
+</html>
